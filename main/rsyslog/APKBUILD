@@ -15,7 +15,7 @@ makedepends="zlib-dev gnutls-dev mariadb-dev postgresql-dev net-snmp-dev
 	libnet-dev libgcrypt-dev libee-dev libestr-dev liblogging-dev
 	libfastjson-dev util-linux-dev py-docutils hiredis-dev linux-headers"
 subpackages="$pkgname-doc $pkgname-mysql $pkgname-pgsql $pkgname-tls
-	$pkgname-snmp $pkgname-hiredis $pkgname-dbg $pkgname-omelasticsearch"
+	$pkgname-snmp $pkgname-hiredis $pkgname-dbg $pkgname-elasticsearch"
 source="http://www.rsyslog.com/files/download/$pkgname/$pkgname-$pkgver.tar.gz
 	$pkgname.initd
 	$pkgname.confd
@@ -38,7 +38,7 @@ build() {
 		--enable-imfile \
 		--enable-mail \
 		--enable-omprog \
-		--enable-omelasticsearch \
+		--enable-elasticsearch \
 		--enable-omstdout \
 		--enable-omudpspoof \
 		--enable-imptcp \
@@ -89,14 +89,15 @@ pgsql() {
 		"$subpkgdir"/usr/lib/rsyslog/
 }
 
-elasticsearch() {                                                                    
-        pkgdesc="rsyslog elasticsearch support"                                      
-                                                                             
-        mkdir -p "$subpkgdir"/usr/lib/rsyslog/                                
-        mv "$pkgdir"/usr/lib/rsyslog/omelasticsearch.so \                             
-                "$subpkgdir"/usr/lib/rsyslog/                                 
-}                                    
-  
+elasticsearch() {
+        pkgdesc="rsyslog elasticsearch support"
+
+        mkdir -p "$subpkgdir"/usr/lib/rsyslog/
+        ls -l "$pkgdir"/usr/lib/rsyslog/omelasticsearch.so
+        mv "$pkgdir"/usr/lib/rsyslog/omelasticsearch.so \
+                "$subpkgdir"/usr/lib/rsyslog/
+}
+
 tls() {
 	pkgdesc="rsyslog tls support"
 
